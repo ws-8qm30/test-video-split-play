@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.8.3",
+    "split-file": "^2.3.0"
+  }
+}
