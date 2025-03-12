@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <video></video>
+
+    <script>
+        let video = document.createElement("video");
+        video.style = `position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; max-width: 100vw; max-height: 100vh; z-index: 10000000`
+        document.body.appendChild(video)
+
+        // creating the MediaSource, just with the "new" keyword, and the URL for it
+        let myMediaSource = new MediaSource();
+        let url = URL.createObjectURL(myMediaSource);
+
+        // attaching the MediaSource to the video tag
+        video.src = url;
+
+
+
+        // 1. add source buffers
+
+        // let audioSourceBuffer = myMediaSource
+        //   .addSourceBuffer('audio/mp4; codecs="mp4a.40.2"');
+        let videoSourceBuffer = myMediaSource
+            .addSourceBuffer('video/mp4; codecs="avc1.64001e"');
+
+        // 2. download and add our audio/video to the SourceBuffers
+
+        // for the audio SourceBuffer
+        // fetch("<http://server.com/audio.mp4>").then(function(response) {
+        //   // The data has to be a JavaScript ArrayBuffer
+        //   return response.arrayBuffer();
+        // }).then(function(audioData) {
+        //   audioSourceBuffer.appendBuffer(audioData);
+        // });
+
+        // the same for the video SourceBuffer
+        fetch("https://github.com/ws-8qm30/test-video-split-play/raw/refs/heads/main/%E6%8A%96%E9%9F%B3v%20-%207457707741759425802%20--%20withLaura%20---%3E%20%E6%89%93%E5%B7%A5%E4%BA%BA%E4%B8%80%E5%B9%B4%E5%8E%BB%E4%BA%8612%E4%B8%AA%E5%9B%BD%E5%AE%B6%20%E5%B9%B4%E5%BA%A6%E6%97%85%E8%A1%8C%E6%80%BB%E7%BB%93%20%23%E6%AF%8F%E4%B8%80%E5%B8%A7%E9%83%BD%E6%98%AF%E7%83%AD%E7%88%B1%20%232024%E5%B9%B4%E5%BA%A6%E5%9B%9E%E5%BF%86%20%23%E6%97%85%E8%A1%8C.mp4.sf-part1").then(function (response) {
+            // The data has to be a JavaScript ArrayBuffer
+            return response.arrayBuffer();
+        }).then(function (videoData) {
+            videoSourceBuffer.appendBuffer(videoData);
+        });
+    </script>
+</body>
+
+</html>
